@@ -208,7 +208,7 @@ function Index() {
       {/* HERO */}
       <section id="hero" className="relative w-full" style={{ height: "100vh" }}>
         <img
-          src="/hero.jpg"
+          src={heroAsset.url}
           alt="Fachada do Belisco's Bistrô Café à noite"
           className="absolute inset-0 w-full h-full"
           style={{ objectFit: "cover", objectPosition: "center top" }}
