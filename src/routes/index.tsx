@@ -341,16 +341,15 @@ function Index() {
             Tudo que você precisa para realizar o evento dos seus sonhos
           </h2>
           <span className="gold-divider" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mt-14">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-14">
             {[
               ["Espaço Externo", "Jardim iluminado e área aberta para cerimônias ao ar livre.", "Foto do jardim externo aqui"],
-              ["Salão Principal", "Ambiente climatizado e decorado com charme e sofisticação.", "Foto do salão decorado aqui"],
               ["Culinária Autoral", "Pratos exclusivos preparados especialmente para o seu evento.", "Foto de prato do evento aqui"],
               ["Open Bar", "Drinks e bebidas selecionadas para animar cada momento.", "Foto de drinks aqui"],
               ["Decoração Personalizada", "Cada detalhe pensado para refletir a sua história.", "Foto de decoração de evento aqui"],
               ["Ambiente Fotogênico", "Cenários únicos para fotos que durarão para sempre.", "Foto de ensaio fotográfico aqui"],
-              ["Música ao Vivo", "Shows e apresentações que elevam a experiência do seu evento.", "Foto de música ao vivo aqui"],
               ["E muito mais!", "Venha nos visitar e conheça tudo que preparamos para você.", "Foto geral do espaço aqui"],
+
             ].map(([title, desc, ph], i) => (
               <div
                 key={title}
