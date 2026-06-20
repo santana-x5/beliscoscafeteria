@@ -14,6 +14,7 @@ import {
   Star,
 } from "lucide-react";
 import { Placeholder } from "@/components/Placeholder";
+import heroAsset from "@/assets/hero.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
