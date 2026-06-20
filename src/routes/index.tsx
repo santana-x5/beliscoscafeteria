@@ -210,8 +210,7 @@ function Index() {
         <img
           src={heroAsset.url}
           alt="Fachada do Belisco's Bistrô Café à noite"
-          className="absolute inset-0 w-full h-full"
-          style={{ objectFit: "cover", objectPosition: "center top" }}
+          className="absolute inset-0 w-full h-full object-cover object-center md:object-top"
         />
         <div
           className="absolute inset-0"
