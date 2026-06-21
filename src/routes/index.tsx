@@ -13,8 +13,29 @@ import {
   Check,
   Star,
 } from "lucide-react";
-import { Placeholder } from "@/components/Placeholder";
-import heroAsset from "@/assets/hero.jpg.asset.json";
+import heroImg from "@/assets/hero.jpg";
+import espacoInternoImg from "@/assets/espaco-interno.jpg";
+import jardimImg from "@/assets/jardim.jpg";
+import culinariaImg from "@/assets/culinaria.jpg";
+import openBarImg from "@/assets/open-bar.jpg";
+import decoracaoImg from "@/assets/decoracao.jpg";
+import ambienteImg from "@/assets/ambiente.jpg";
+import espacoGeralImg from "@/assets/espaco-geral.jpg";
+import casamentoImg from "@/assets/casamento.jpg";
+import quinzeAnosImg from "@/assets/quinze-anos.jpg";
+import comemoracoesImg from "@/assets/comemoracoes.jpg";
+import galeria1Img from "@/assets/galeria-1.jpg";
+import galeria2Img from "@/assets/galeria-2.jpg";
+import galeria3Img from "@/assets/galeria-3.jpg";
+import galeria4Img from "@/assets/galeria-4.jpg";
+import galeria5Img from "@/assets/galeria-5.jpg";
+import galeria6Img from "@/assets/galeria-6.jpg";
+import galeria7Img from "@/assets/galeria-7.jpg";
+import galeria8Img from "@/assets/galeria-8.jpg";
+import galeria9Img from "@/assets/galeria-9.jpg";
+import galeria10Img from "@/assets/galeria-10.jpg";
+import galeria11Img from "@/assets/galeria-11.jpg";
+import galeria12Img from "@/assets/galeria-12.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -40,25 +61,53 @@ const PHONE = "tel:+55XXXXXXXXXXX";
 const INSTAGRAM = "https://instagram.com/beliscosbistro";
 const MAPS = "https://maps.google.com/?q=Rua+Dez+de+Janeiro+102+São+Lourenço+da+Mata";
 
-const galleryImages = [
-  { label: "Casamento — cerimônia", ratio: "4/5" },
-  { label: "15 anos — entrada da debutante", ratio: "3/4" },
-  { label: "Casamento — primeira dança", ratio: "4/3" },
-  { label: "Aniversário — mesa decorada", ratio: "1/1" },
-  { label: "15 anos — valsa", ratio: "4/5" },
-  { label: "Casamento — recepção", ratio: "3/4" },
-  { label: "Bodas — brinde", ratio: "4/3" },
-  { label: "15 anos — pista de dança", ratio: "1/1" },
-  { label: "Casamento — bouquet", ratio: "4/5" },
-  { label: "Comemoração — convidados", ratio: "3/4" },
-  { label: "15 anos — decoração", ratio: "4/3" },
-  { label: "Bodas — celebração", ratio: "4/5" },
+type GalleryImage = { label: string; ratio: string; src: string };
+
+const galleryImages: GalleryImage[] = [
+  { label: "Casamento — cerimônia", ratio: "4/5", src: galeria1Img },
+  { label: "15 anos — entrada da debutante", ratio: "3/4", src: galeria2Img },
+  { label: "Casamento — primeira dança", ratio: "4/3", src: galeria3Img },
+  { label: "Aniversário — mesa decorada", ratio: "1/1", src: galeria4Img },
+  { label: "15 anos — valsa", ratio: "4/5", src: galeria5Img },
+  { label: "Casamento — recepção", ratio: "3/4", src: galeria6Img },
+  { label: "Bodas — brinde", ratio: "4/3", src: galeria7Img },
+  { label: "15 anos — pista de dança", ratio: "1/1", src: galeria8Img },
+  { label: "Casamento — bouquet", ratio: "4/5", src: galeria9Img },
+  { label: "Comemoração — convidados", ratio: "3/4", src: galeria10Img },
+  { label: "15 anos — decoração", ratio: "4/3", src: galeria11Img },
+  { label: "Bodas — celebração", ratio: "4/5", src: galeria12Img },
+];
+
+type SpaceCard = [string, string, string];
+
+const spaceCards: SpaceCard[] = [
+  ["Espaço Externo", "Jardim iluminado e área aberta para cerimônias ao ar livre.", jardimImg],
+  ["Culinária Autoral", "Pratos exclusivos preparados especialmente para o seu evento.", culinariaImg],
+  ["Open Bar", "Drinks e bebidas selecionadas para animar cada momento.", openBarImg],
+  ["Decoração Personalizada", "Cada detalhe pensado para refletir a sua história.", decoracaoImg],
+  ["Ambiente Fotogênico", "Cenários únicos para fotos que durarão para sempre.", ambienteImg],
+  ["E muito mais!", "Venha nos visitar e conheça tudo que preparamos para você.", espacoGeralImg],
+];
+
+type EventCard = [string, string, string];
+
+const eventCards: EventCard[] = [
+  ["Casamentos", "O seu casamento será o dia mais feliz da sua vida. Realizamos cerimônias e recepções com toda a elegância que esse momento merece.", casamentoImg],
+  ["15 Anos", "O baile de debutante é um sonho. Criamos uma experiência mágica e inesquecível para a noite mais especial da sua vida.", quinzeAnosImg],
+  ["Comemorações", "Aniversários, bodas, formaturas e confraternizações — realizamos qualquer celebração com o charme que só o Belisco's oferece.", comemoracoesImg],
 ];
 
 function Index() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -67,7 +116,6 @@ function Index() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Fade-in observer
   useEffect(() => {
     const els = document.querySelectorAll(".fade-in");
     const io = new IntersectionObserver(
@@ -85,7 +133,6 @@ function Index() {
     return () => io.disconnect();
   }, []);
 
-  // Parallax
   const leftColRef = useRef<HTMLDivElement>(null);
   const rightColRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -96,8 +143,10 @@ function Index() {
         if (!leftColRef.current || !rightColRef.current) return;
         const rect = leftColRef.current.getBoundingClientRect();
         const progress = -rect.top;
-        leftColRef.current.style.transform = `translateY(${progress * -0.05}px)`;
-        rightColRef.current.style.transform = `translateY(${progress * 0.05}px)`;
+
+        //não tira o parallax, se não da erro
+        leftColRef.current.style.transform = `translateY(0px)`;
+        rightColRef.current.style.transform = `translateY(${progress * 0.03}px)`;
       });
     };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -116,6 +165,7 @@ function Index() {
     () => setLightbox((i) => (i === null ? null : (i + 1) % galleryImages.length)),
     [],
   );
+
   useEffect(() => {
     if (lightbox === null) return;
     const onKey = (e: KeyboardEvent) => {
@@ -140,6 +190,7 @@ function Index() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "var(--cream)" }}>
+
       {/* NAVBAR */}
       <nav
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
@@ -208,15 +259,15 @@ function Index() {
       {/* HERO */}
       <section id="hero" className="relative w-full" style={{ height: "100vh" }}>
         <img
-          src={heroAsset.url}
+          src={heroImg}
           alt="Fachada do Belisco's Bistrô Café à noite"
-          className="absolute inset-0 w-full h-full object-cover object-center md:object-top"
+          className="absolute inset-0 w-full h-full object-cover"
+               style={{ objectPosition: isMobile ? "60% center" : "center 35%" }}
         />
         <div
           className="absolute inset-0"
           style={{
-            background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 100%)",
+            background: "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 100%)",
           }}
         />
         <div className="relative h-full flex flex-col items-center justify-center text-center px-6 z-10">
@@ -271,11 +322,7 @@ function Index() {
       </section>
 
       {/* GOLD STRIP */}
-      <div
-        id="cta-strip"
-        className="w-full py-4 px-6"
-        style={{ backgroundColor: "var(--gold)" }}
-      >
+      <div id="cta-strip" className="w-full py-4 px-6" style={{ backgroundColor: "var(--gold)" }}>
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-3 text-center">
           <p className="text-white text-sm md:text-base" style={{ fontWeight: 400 }}>
             Solicite um orçamento ou agende uma visita ao Belisco's Bistrô Café
@@ -292,24 +339,14 @@ function Index() {
       </div>
 
       {/* SOBRE */}
-      <section
-        id="sobre"
-        className="py-24 md:py-32 px-6"
-        style={{ backgroundColor: "var(--cream)" }}
-      >
+      <section id="sobre" className="py-24 md:py-32 px-6" style={{ backgroundColor: "var(--cream)" }}>
         <div className="max-w-6xl mx-auto grid md:grid-cols-[1.2fr_1fr] gap-12 md:gap-20 items-center">
           <div className="fade-in">
             <p className="section-label">Bem-vindo ao Belisco's</p>
-            <h2
-              className="mt-4"
-              style={{ fontSize: "clamp(1.875rem, 4vw, 2.75rem)", lineHeight: 1.15 }}
-            >
+            <h2 className="mt-4" style={{ fontSize: "clamp(1.875rem, 4vw, 2.75rem)", lineHeight: 1.15 }}>
               Como vamos realizar o seu sonho?
             </h2>
-            <span
-              className="block mt-5 mb-6"
-              style={{ width: 40, height: 2, backgroundColor: "var(--gold)" }}
-            />
+            <span className="block mt-5 mb-6" style={{ width: 40, height: 2, backgroundColor: "var(--gold)" }} />
             <p className="text-base md:text-lg leading-relaxed mb-5">
               O Belisco's Bistrô Café é um espaço único em São Lourenço da Mata, criado
               para transformar momentos especiais em memórias eternas. Com uma atmosfera
@@ -322,11 +359,8 @@ function Index() {
               descobrir por que somos a escolha certa para o seu grande momento.
             </p>
           </div>
-          <div
-            className="fade-in overflow-hidden"
-            style={{ aspectRatio: "4/5", borderRadius: 12 }}
-          >
-            <Placeholder label="Foto do espaço interno aqui" />
+          <div className="fade-in overflow-hidden" style={{ aspectRatio: "4/5", borderRadius: 12 }}>
+            <img src={espacoInternoImg} alt="Espaço interno do Belisco's" className="w-full h-full object-cover" />
           </div>
         </div>
       </section>
@@ -342,22 +376,14 @@ function Index() {
           </h2>
           <span className="gold-divider" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-14">
-            {[
-              ["Espaço Externo", "Jardim iluminado e área aberta para cerimônias ao ar livre.", "Foto do jardim externo aqui"],
-              ["Culinária Autoral", "Pratos exclusivos preparados especialmente para o seu evento.", "Foto de prato do evento aqui"],
-              ["Open Bar", "Drinks e bebidas selecionadas para animar cada momento.", "Foto de drinks aqui"],
-              ["Decoração Personalizada", "Cada detalhe pensado para refletir a sua história.", "Foto de decoração de evento aqui"],
-              ["Ambiente Fotogênico", "Cenários únicos para fotos que durarão para sempre.", "Foto de ensaio fotográfico aqui"],
-              ["E muito mais!", "Venha nos visitar e conheça tudo que preparamos para você.", "Foto geral do espaço aqui"],
-
-            ].map(([title, desc, ph], i) => (
+            {spaceCards.map(([title, desc, src], i) => (
               <div
                 key={title}
                 className="fade-in text-left bg-white overflow-hidden"
                 style={{ borderRadius: 8, boxShadow: "0 4px 18px rgba(44,31,14,0.05)", transitionDelay: `${i * 60}ms` }}
               >
-                <div style={{ aspectRatio: "4/3" }}>
-                  <Placeholder label={ph} />
+                <div style={{ aspectRatio: "4/3", overflow: "hidden" }}>
+                  <img src={src} alt={title} className="w-full h-full object-cover" />
                 </div>
                 <div className="p-6">
                   <p style={{ color: "var(--gold)", fontFamily: "Playfair Display, serif", fontWeight: 700 }}>
@@ -397,27 +423,16 @@ function Index() {
               <div
                 key={name}
                 className="fade-in bg-white p-8 md:p-10 relative"
-                style={{
-                  borderRadius: 8,
-                  border: "1px solid #e8e0d5",
-                  transitionDelay: `${i * 100}ms`,
-                }}
+                style={{ borderRadius: 8, border: "1px solid #e8e0d5", transitionDelay: `${i * 100}ms` }}
               >
                 <span
                   className="block leading-none"
-                  style={{
-                    fontFamily: "Playfair Display, serif",
-                    color: "var(--gold)",
-                    fontSize: "4rem",
-                    height: "2rem",
-                  }}
+                  style={{ fontFamily: "Playfair Display, serif", color: "var(--gold)", fontSize: "4rem", height: "2rem" }}
                 >
                   "
                 </span>
                 <p className="italic mt-2 text-base leading-relaxed">{quote}</p>
-                <p className="mt-6 text-center" style={{ fontWeight: 700, color: "var(--brown-dark)" }}>
-                  {name}
-                </p>
+                <p className="mt-6 text-center" style={{ fontWeight: 700, color: "var(--brown-dark)" }}>{name}</p>
                 <div className="flex justify-center gap-1 mt-2">
                   {[...Array(5)].map((_, j) => (
                     <Star key={j} size={16} fill="var(--gold)" stroke="var(--gold)" />
@@ -445,22 +460,17 @@ function Index() {
             Soluções para todo tipo de evento
           </h2>
           <p className="mt-4 max-w-2xl mx-auto">
-            Escolha abaixo o tipo de evento que deseja realizar e veja tudo o que podemos
-            oferecer.
+            Escolha abaixo o tipo de evento que deseja realizar e veja tudo o que podemos oferecer.
           </p>
           <div className="grid md:grid-cols-3 gap-8 mt-14">
-            {[
-              ["Casamentos", "O seu casamento será o dia mais feliz da sua vida. Realizamos cerimônias e recepções com toda a elegância que esse momento merece.", "Foto de casamento aqui"],
-              ["15 Anos", "O baile de debutante é um sonho. Criamos uma experiência mágica e inesquecível para a noite mais especial da sua vida.", "Foto de festa de 15 anos aqui"],
-              ["Comemorações", "Aniversários, bodas, formaturas e confraternizações — realizamos qualquer celebração com o charme que só o Belisco's oferece.", "Foto de aniversário/bodas aqui"],
-            ].map(([title, desc, ph], i) => (
+            {eventCards.map(([title, desc, src], i) => (
               <div
                 key={title}
                 className="fade-in bg-white overflow-hidden flex flex-col"
                 style={{ borderRadius: 8, boxShadow: "0 6px 24px rgba(44,31,14,0.07)", transitionDelay: `${i * 120}ms` }}
               >
-                <div className="relative" style={{ aspectRatio: "3/4" }}>
-                  <Placeholder label={ph} />
+                <div className="relative" style={{ aspectRatio: "3/4", overflow: "hidden" }}>
+                  <img src={src} alt={title} className="w-full h-full object-cover" />
                   <div
                     className="absolute left-1/2 -translate-x-1/2 -bottom-6 w-12 h-12 rounded-full flex items-center justify-center"
                     style={{ backgroundColor: "var(--gold)" }}
@@ -488,11 +498,7 @@ function Index() {
       </section>
 
       {/* GALERIA PARALLAX */}
-      <section
-        id="galeria"
-        className="py-24 md:py-32 px-6 overflow-hidden"
-        style={{ backgroundColor: "var(--footer)" }}
-      >
+      <section id="galeria" className="py-24 md:py-32 px-6 overflow-hidden" style={{ backgroundColor: "var(--footer)" }}>
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-white" style={{ fontSize: "clamp(1.875rem, 4vw, 2.75rem)" }}>
             Momentos que ficam para sempre
@@ -512,7 +518,7 @@ function Index() {
                     className="block w-full overflow-hidden hover:opacity-90 transition-opacity"
                     style={{ aspectRatio: img.ratio, borderRadius: 6 }}
                   >
-                    <Placeholder label={img.label} dark />
+                    <img src={img.src} alt={img.label} className="w-full h-full object-cover" />
                   </button>
                 );
               })}
@@ -527,7 +533,7 @@ function Index() {
                     className="block w-full overflow-hidden hover:opacity-90 transition-opacity"
                     style={{ aspectRatio: img.ratio, borderRadius: 6 }}
                   >
-                    <Placeholder label={img.label} dark />
+                    <img src={img.src} alt={img.label} className="w-full h-full object-cover" />
                   </button>
                 );
               })}
@@ -571,10 +577,7 @@ function Index() {
               rel="noopener noreferrer"
               aria-label={s.label}
               className="flex items-center justify-center transition-all duration-300"
-              style={{
-                backgroundColor: "var(--footer-alt)",
-                height: 80,
-              }}
+              style={{ backgroundColor: "var(--footer-alt)", height: 80 }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = s.grad
                   ? "linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)"
@@ -591,21 +594,9 @@ function Index() {
       </div>
 
       {/* FOOTER */}
-      <footer
-        id="contato"
-        className="px-6 py-14 text-center"
-        style={{ backgroundColor: "var(--footer)", color: "var(--beige)" }}
-      >
+      <footer id="contato" className="px-6 py-14 text-center" style={{ backgroundColor: "var(--footer)", color: "var(--beige)" }}>
         <div className="max-w-3xl mx-auto">
-          <p
-            style={{
-              fontFamily: "Playfair Display, serif",
-              fontWeight: 700,
-              fontSize: "1.5rem",
-              color: "#fff",
-              letterSpacing: "0.15em",
-            }}
-          >
+          <p style={{ fontFamily: "Playfair Display, serif", fontWeight: 700, fontSize: "1.5rem", color: "#fff", letterSpacing: "0.15em" }}>
             BELISCO'S BISTRÔ CAFÉ
           </p>
           <a
@@ -616,12 +607,8 @@ function Index() {
           >
             Quero um orçamento
           </a>
-          <p className="text-sm mt-8 opacity-80">
-            Rua Dez de Janeiro, 102 — São Lourenço da Mata, PE
-          </p>
-          <p className="text-xs mt-3 opacity-60">
-            © 2025 Belisco's Bistrô Café — Todos os direitos reservados
-          </p>
+          <p className="text-sm mt-8 opacity-80">Rua Dez de Janeiro, 102 — São Lourenço da Mata, PE</p>
+          <p className="text-xs mt-3 opacity-60">© 2025 Belisco's Bistrô Café — Todos os direitos reservados</p>
         </div>
       </footer>
 
@@ -632,12 +619,7 @@ function Index() {
         rel="noopener noreferrer"
         aria-label="WhatsApp"
         className="fixed bottom-6 right-6 z-40 flex items-center justify-center rounded-full transition-transform hover:scale-110"
-        style={{
-          width: 58,
-          height: 58,
-          backgroundColor: "#25D366",
-          boxShadow: "0 6px 20px rgba(37,211,102,0.4)",
-        }}
+        style={{ width: 58, height: 58, backgroundColor: "#25D366", boxShadow: "0 6px 20px rgba(37,211,102,0.4)" }}
       >
         <MessageCircle size={28} color="#fff" />
       </a>
@@ -649,11 +631,7 @@ function Index() {
           style={{ backgroundColor: "rgba(0,0,0,0.92)" }}
           onClick={closeLightbox}
         >
-          <button
-            onClick={closeLightbox}
-            className="absolute top-5 right-5 text-white z-10 p-2"
-            aria-label="Fechar"
-          >
+          <button onClick={closeLightbox} className="absolute top-5 right-5 text-white z-10 p-2" aria-label="Fechar">
             <X size={32} />
           </button>
           <button
@@ -674,11 +652,8 @@ function Index() {
             className="flex-1 flex items-center justify-center p-6 md:p-16"
             onClick={(e) => e.stopPropagation()}
           >
-            <div
-              className="w-full max-w-4xl"
-              style={{ aspectRatio: galleryImages[lightbox].ratio, maxHeight: "75vh" }}
-            >
-              <Placeholder label={galleryImages[lightbox].label} dark />
+            <div className="w-full max-w-4xl" style={{ aspectRatio: galleryImages[lightbox].ratio, maxHeight: "75vh", overflow: "hidden" }}>
+              <img src={galleryImages[lightbox].src} alt={galleryImages[lightbox].label} className="w-full h-full object-cover" />
             </div>
           </div>
           <div
@@ -689,23 +664,23 @@ function Index() {
               <button
                 key={i}
                 onClick={() => setLightbox(i)}
-                className="shrink-0 transition-opacity"
+                className="shrink-0 transition-opacity overflow-hidden"
                 style={{
                   width: 64,
                   height: 64,
                   opacity: i === lightbox ? 1 : 0.5,
                   border: i === lightbox ? "2px solid var(--gold)" : "2px solid transparent",
                   borderRadius: 4,
-                  overflow: "hidden",
                 }}
                 aria-label={img.label}
               >
-                <Placeholder label="" dark />
+                <img src={img.src} alt={img.label} className="w-full h-full object-cover" />
               </button>
             ))}
           </div>
         </div>
       )}
+
     </div>
   );
 }
