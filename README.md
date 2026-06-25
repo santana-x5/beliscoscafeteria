@@ -45,6 +45,10 @@ const WHATSAPP = "https://wa.me/55XXXXXXXXXX";   // número do WhatsApp
 const PHONE    = "tel:+55XXXXXXXXXXX";            // telefone
 ```
 
+## Acesso
+
+O site está disponível em: [beliscos-cafe.vercel.app](https://beliscos-cafe.vercel.app)
+
 ## Deploy
 
 O projeto está hospedado na Vercel conectado ao repositório GitHub `santana-x5/belisco-s-dream-builder`. Qualquer push na branch `main` dispara um novo deploy automaticamente.
