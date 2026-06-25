@@ -51,4 +51,4 @@ O site está disponível em: [beliscos-cafe.vercel.app](https://beliscos-cafe.ve
 
 ## Deploy
 
-O projeto está hospedado na Vercel conectado ao repositório GitHub `santana-x5/belisco-s-dream-builder`. Qualquer push na branch `main` dispara um novo deploy automaticamente.
+O projeto está hospedado na Vercel conectado ao repositório GitHub `santana-x5/beliscoscafeteria`. Qualquer push na branch `main` dispara um novo deploy automaticamente.
